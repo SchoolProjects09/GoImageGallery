@@ -1,0 +1,18 @@
+
+<html>
+	<head>
+		<title>Error</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+	
+	<body class="blue">
+		{{ template "banner" . }}
+		
+		<div class="tac">
+			<p class="tac H2">An Error Has Occurred: </p>
+			<p class="m-12"> {{ .ErrString }} </p>
+			<button class="btn btn-primary"><a class="btn" href="/upload" role="button" >Return to Upload Page</a></button>
+		</div>
+	</body>
+</html>

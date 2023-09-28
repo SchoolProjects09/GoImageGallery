@@ -1,0 +1,98 @@
+{{if .Found}}
+<html>
+	<!--If the image is found-->
+	<head>
+		<title>Image {{ .Name }}</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+
+	<body class="blue">
+
+	{{ template "banner" . }}
+
+	<div class="tac img-large">
+		<picture id="picture">
+			<source media="(min-width:1300px)" srcset="/assets/resized/{{ .SrcName }}_1200.jpg">
+			<source media="(min-width:1100px)" srcset="/assets/resized/{{ .SrcName }}_1000.jpg">
+			<source media="(min-width:900px)" srcset="/assets/resized/{{ .SrcName }}_800.jpg">
+			<source media="(min-width:700px)" srcset="/assets/resized/{{ .SrcName }}_600.jpg">
+			<source media="(min-width:500px)" srcset="/assets/resized/{{ .SrcName }}_400.jpg">
+			<img src="{{ .ImagePath }}" alt="{{ .Name }}" onerror="onError()">
+		</picture>
+		<img class="img-large hidden" id="image" alt="{{ .Name }}" src="{{ .ImagePath }}">
+	</div>
+	
+	<div class="tac d-block">
+		<table class="table">
+			<tr>
+				<td>
+					<button class="btn btn-primary"><a class="btn" href="/gallery" >Return to Gallery</a></button>
+				</td>
+				<!--td>
+					<button onclick="ToggleSize()" id="toggleButton" class="btn btn-primary ml-4">Maximize Image</button>
+				</td-->
+				<td>
+					<button class="btn btn-primary ml-4"><a class="btn" target="_blank" rel="noopener noreferrer" href="/assets/images/{{ .ExtName }}" >View Original Image</a></button>
+				</td>
+				{{if .LoggedIn}}
+				<td>
+					<button type="submit" class="btn btn-primary ml-4"><a class="btn" href="/delete/{{ .ExtName }}">Delete Image</a></button>
+				</td>
+				{{end}}
+				<td>
+					<!--The download equals is the downloaded file name. The extension is automatically detected-->
+					<button class="btn btn-primary ml-4"><a download="{{ .Name }}" class="btn" href="/download/{{ .ExtName }}" >Download Image</a></button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</body>
+	<script>
+		function onError() {
+			//If the picture element cannot load, default to showing the base image
+			var p = document.getElementById("picture");
+			var i = document.getElementById("image");
+			p.style.display = "none";
+			i.style.display = "inline";
+		}
+	</script>
+	<!--script>
+		function ToggleSize(){
+			var width = parseInt(window.innerWidth, 10);
+			var width69 = width * 0.69;
+
+			var imageElement = document.getElementById("image");
+			var buttonElement = document.getElementById("toggleButton");
+			var bounding = imageElement.getBoundingClientRect()
+			//Does not do anything if the image is already at its maximum size
+			if (bounding.width > width69){
+				if (imageElement.style.maxWidth == "98%") {
+				imageElement.style.maxWidth = "70%";
+				buttonElement.innerText = "Maximize Image";
+				} else {
+				imageElement.style.maxWidth = "98%";
+				buttonElement.innerText = "Minimize Image";
+				}
+			}
+		}
+	</script-->
+</html>
+{{else}}
+<html>
+	<!--If the image file is not found-->
+	<head>
+		<title>Error</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+
+	<body class="blue">
+
+		{{ template "banner" . }}
+
+		<p class="tac H2">An Error Has Occurred:</p>
+		<p class="tac">The requested image has not been found</p>
+	</body>
+</html>
+{{end}}

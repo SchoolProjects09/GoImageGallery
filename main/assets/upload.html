@@ -1,0 +1,40 @@
+
+<html>
+	<head>
+		<title>Upload</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+	
+	<body class="blue">
+		{{ template "banner" . }}
+		
+		<h3 class="tac">Upload File to Database:</h3>
+		
+		<div>
+			<form
+				name="uploadForm"
+				role="upload" 
+				class ="tac"
+				action="/uploaded"
+				method="POST"
+				enctype="multipart/form-data"
+				onsubmit="return(validateForm());"
+			>
+				<input class="input file-input" name="fileInput" accept=".png,.jpg" type="file" /> <!--multiple-->
+				<button class="button" type="submit">Submit</button>
+			</form>
+		</div>
+		
+	</body>
+	<script>
+		function  validateForm(){
+			if (document.uploadForm.fileInput.value==""){
+				alert("Please select a file to upload");
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,55 @@
+
+{{ define "banner" }}
+	<div class="navbar">
+		{{if .LoggedIn}} 
+		<div class="dropdown">
+			<button class="dropBtn">
+				{{.Username}}
+			</button>
+			<div class="dropdown-content">
+				<a role="button" >Profile</a>
+				<a role="button" >Settings</a>
+				<a href="/logout" role="button" >Log Out</a>
+			</div>
+		  </div> 
+		{{else}} <b><a href="/login">Not Logged In</a></b>
+		{{end}}
+		
+		<!--span class="right hide" style="padding:8px 8px 8px 8px;display:block"></span-->
+		<span class="right">
+			<a href="/gallery" role="button" >Gallery</a>
+			<a href="/upload" role="button" >Upload</a>
+		</span>
+	</div>
+{{ end }}
+
+{{ define "ImageTable2" }}
+	<table class="table mt-8">
+	<tbody>
+		{{range .Images }} <tr>
+		{{range . }} <td> 
+			<div class="m-4">
+				<a href="/image/{{.ImageName}}"> 
+					<img src="/assets/thumbnails/{{.ThumbName}}.jpg" alt="{{.ThumbName}}" class="galleryImage"> 
+				</a>
+				<div class="mt-4"> {{.ImageName}} </div>
+			</div>
+		</td>
+		{{end}} </tr>
+		{{end}}
+	</tbody>
+	</table>
+{{ end }}
+
+{{ define "ImageTable" }}
+	<div class="table mt-8">
+		{{range .Images }}
+			<div class="table-item">
+				<a href="/image/{{.ImageName}}"> 
+					<img src="/assets/thumbnails/{{.ThumbName}}.jpg" alt="{{.ThumbName}}" class="galleryImage"> 
+				</a>
+				<div class="mt-4"> {{.ImageName}} </div>
+			</div>
+		{{end}}
+	</div>
+{{ end }}

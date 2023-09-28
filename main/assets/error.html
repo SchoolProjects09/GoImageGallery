@@ -1,0 +1,15 @@
+
+<html>
+	<head>
+		<title>Error</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+	
+	<body class="blue">
+		{{ template "banner" . }}
+		
+		<p class="tac H2">An Error Has Occurred:</p>
+		<p class="tac"> {{ .ErrString }} </p>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<html>
+	<!--If the user is not logged in-->
+	<head>
+		<title>Log In</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="assets/base.css" />
+	</head>
+	
+	<body class="blue tac">
+	
+	{{ template "banner" . }}
+
+    <h1>Please Enter Your Username and Password:</h1>
+    <form
+		name="loginForm"
+		role="login" 
+		method="POST" 
+		onsubmit="return(validateForm());"
+		class ="tac"
+	>
+        <label>Username:</label><br />
+        <input type="text" name="username"><br />
+        <label>Password:</label><br />
+        <input type="password" name="password" id="passwordInput"><br />
+		<input type="checkbox" onclick="toggleVisibility()">Show Password <br><br />
+        <button type="submit" name="submitButton" value="clicked" class="btn btn-primary">Log In</button>
+    </form>
+	{{if .Data}} <!--If the user tried to log in, but failed-->
+	<p class="red">Error logging in! Please enter a valid username and password!</p>
+	{{end}}
+	</body>
+	<script>
+		function toggleVisibility() {
+			var x = document.getElementById("passwordInput");
+			if (x.type == "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+		function  validateForm(){
+			if (document.loginForm.username.value==""){
+				alert("Please enter a username");
+				document.loginForm.username.focus();
+				return false;
+			}
+			
+			if (document.loginForm.password.value==""){
+				alert("Please enter a password");
+				document.loginForm.password.focus();
+				return false;
+			}
+			
+			return true;
+		}
+	</script>
+</html>

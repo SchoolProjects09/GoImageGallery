@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>Main Gallery</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+	
+	<body class="blue" onload="clearSearch()">
+	<!--If the user successfully logged in-->
+	{{ template "banner" . }}
+	
+	<div class="tac">
+		<p class="H2">Search the Gallery:</p>
+	</div>
+	
+	<form
+		name="searchForm"
+		role="search" 
+		action="/search"
+		method="POST" 
+		onsubmit="return(validateForm());"
+		class ="tac m-8"
+	>
+		<span>
+			<input class="mr-8" type="search" name="search" value="">
+			<button type="submit" name="submitButton" value="clicked" class="btn btn-primary">Search</button>
+		</span>
+	</form>
+	
+	{{ template "ImageTable" . }}
+	
+	</body>
+	<script>
+		function clearSearch(){
+			search = document.getElementsByName("search");
+			search.value = "";
+		}
+		function  validateForm(){
+			if (document.searchForm.search.value==""){
+				document.searchForm.search.focus();
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Search</title>
+		<link rel='icon' href='/assets/favicon.ico' type='image/x-icon'/>
+		<link rel="stylesheet" href="/assets/base.css" />
+	</head>
+	
+	<body class="blue">
+	<!--If the user successfully logged in-->
+	{{ template "banner" . }}
+	
+	<div class="tac">
+		<p class="H2">Search the Gallery:</p>
+	</div>
+	
+	<form
+		name="searchForm"
+		role="search" 
+		action="/search"
+		method="POST" 
+		onsubmit="return(validateForm());"
+		class ="tac m-8"
+	>
+		<span>
+			<input class="mr-8" type="search" name="search" value="{{ .SearchItem }}">
+			<button type="submit" name="submitButton" value="clicked" class="btn btn-primary">Search</button>
+		</span>
+	</form>
+	
+	{{ if (gt .Numfound 0) }}
+	<h3 class="tac m-8">{{ .Numfound }} Results Found For: {{ .SearchItem }}</h3>
+	{{ template "ImageTable" . }}
+	{{else}}
+	<div class="tac">
+		<b>No results were found for: {{ .SearchItem }}</b>
+	</div>
+	{{end}}
+	
+	<!--a href='/logout'><button>Logout</button></a-->
+	</body>
+	<script>
+		function  validateForm(){
+			if (document.searchForm.search.value==""){
+				document.searchForm.search.focus();
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+</html>
